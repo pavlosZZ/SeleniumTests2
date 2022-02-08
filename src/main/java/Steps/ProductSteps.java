@@ -16,8 +16,8 @@ public class ProductSteps {
     }
 
     @Step
-    public void selectProductSize(String price){
-        productPage.getProductSize(price).click();
+    public void selectProductSize(String size){
+        productPage.getProductSize(size).click();
     }
 
     @Step
