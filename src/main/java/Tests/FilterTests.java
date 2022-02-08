@@ -7,23 +7,25 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import Steps.LoginSteps;
 import Steps.ProductSteps;
 import Steps.CartSteps;
+import Steps.FilterSteps;
 
 @RunWith(SerenityRunner.class)
-public class AddToCartTests {
-
+public class FilterTests {
 
     public String username = "roni_cost@example.com";
     public String password = "roni_cost3@example.com";
-    public String customerCategory = "Men";
+    public String customerCategory = "Women";
     public String productCategory = "Tops";
     public String productName = "Atlas Fitness Tank";
     public String productPrice = "€18.00";
     public String productSize = "L";
     public String productColor = "Blue";
+
 
     @Managed
     WebDriver driver;
@@ -35,6 +37,8 @@ public class AddToCartTests {
     ProductSteps productSteps;
     @Steps
     CartSteps cartSteps;
+    @Steps
+    FilterSteps filterSteps;
 
     @Before
     public void beforeTest()  {
@@ -43,43 +47,31 @@ public class AddToCartTests {
         //Thread.sleep(5000);
     }
 
-    @Test
-    public void addToCartVerification(){
-        loginSteps.signIn();
-        loginSteps.enterUsername(username);
-        loginSteps.enterPassword(password);
-        loginSteps.clickSubmit();
-        loginSteps.selectCustomerCategory(customerCategory);
-        loginSteps.selectProductCategory(productCategory);
-        loginSteps.selectProduct(productName);
-        productSteps.checkProductPrice(productPrice);
-        productSteps.selectProductSize(productSize);
-        productSteps.selectProductColor(productColor);
-        productSteps.addProductToCart();
-        productSteps.goToCartPage();
-        cartSteps.checkCartElements(productName);
-        cartSteps.checkCartCounter();
-    }
 
     @Test
-    public void goToCartPageTest() throws InterruptedException {
+    public void filterTest() throws InterruptedException {
         loginSteps.signIn();
         loginSteps.enterUsername(username);
         loginSteps.enterPassword(password);
         loginSteps.clickSubmit();
         loginSteps.selectCustomerCategory(customerCategory);
         loginSteps.selectProductCategory(productCategory);
-        loginSteps.selectProduct(productName);
-        productSteps.checkProductPrice(productPrice);
-        productSteps.selectProductSize(productSize);
-        productSteps.selectProductColor(productColor);
-        productSteps.addProductToCart();
-        productSteps.goToCartPage();
-        Thread.sleep(5000);
-        cartSteps.checkCartElements(productName);
-        cartSteps.checkCartCounter();
-        cartSteps.goToCartPage();
-        cartSteps.checkProductsIntoCart(productName);
+        filterSteps.selectFilter("Price");
+        filterSteps.selectRange("30-40");
+        boolean done = false;
+        while(!done){
+            filterSteps.checkPrices("30-40");
+            done = true;
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("window.scrollBy(0,1450)", "");
+            Thread.sleep(5000);
+            if(filterSteps.isNextDisplayed()){
+                filterSteps.clickNextButton();
+                done = false;
+            }
+        }
+
+
     }
 
     @After

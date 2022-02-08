@@ -8,7 +8,7 @@ import java.util.List;
 
 public class CartPage extends PageObject {
 
-    String CART_ELEMENT = "//a[@data-bind='attr: {href: product_url}, html: product_name'][text()='%s']";
+    String CART_ELEMENT = "//strong//a[text()='%s']";
     String CART_COUNTER = "//span[@class='counter-number']";
     String CART_LIST = "[data-role='product-item']";
     String CART_ITEMS = "[class='count']";
