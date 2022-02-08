@@ -2,24 +2,25 @@ package Tests;
 
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
+import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import Steps.LoginSteps;
 import Steps.ProductSteps;
 import Steps.CartSteps;
-import Steps.FilterSteps;
+import Steps.FilterSimpleSteps;
+import Steps.FilterCombinationSteps;
 
 @RunWith(SerenityRunner.class)
-public class FilterTests {
+public class FilterCombinationTests {
 
     public String username = "roni_cost@example.com";
     public String password = "roni_cost3@example.com";
-    public String customerCategory = "Women";
+    public String customerCategory = "Men";
     public String productCategory = "Tops";
     public String productName = "Atlas Fitness Tank";
     public String productPrice = "€18.00";
@@ -38,7 +39,9 @@ public class FilterTests {
     @Steps
     CartSteps cartSteps;
     @Steps
-    FilterSteps filterSteps;
+    FilterSimpleSteps filterSteps;
+    @Steps
+    FilterCombinationSteps filterCombinationSteps;
 
     @Before
     public void beforeTest()  {
@@ -49,30 +52,24 @@ public class FilterTests {
 
 
     @Test
-    public void filterTest() throws InterruptedException {
+    public void filterCombination() throws InterruptedException {
         loginSteps.signIn();
         loginSteps.enterUsername(username);
         loginSteps.enterPassword(password);
         loginSteps.clickSubmit();
         loginSteps.selectCustomerCategory(customerCategory);
         loginSteps.selectProductCategory(productCategory);
+        filterSteps.selectFilter("Category");
+        filterCombinationSteps.getMenTank();
+        Thread.sleep(5000);
         filterSteps.selectFilter("Price");
-        filterSteps.selectRange("30-40");
-        boolean done = false;
-        while(!done){
-            filterSteps.checkPrices("30-40");
-            done = true;
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("window.scrollBy(0,1450)", "");
-            Thread.sleep(5000);
-            if(filterSteps.isNextDisplayed()){
-                filterSteps.clickNextButton();
-                done = false;
-            }
-        }
+        filterCombinationSteps.selectRange("20-30");
+        filterSteps.checkPrices("20-30");
+        filterCombinationSteps.checkAllProducts();
 
 
     }
+
 
     @After
     public void afterTest(){

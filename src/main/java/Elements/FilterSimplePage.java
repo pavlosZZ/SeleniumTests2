@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 
 import java.util.List;
 
-public class FilterPage extends PageObject {
+public class FilterSimplePage extends PageObject {
 
     String SELECT_FILTER = "//div[@class='filter-options']//div//div[@data-role='title'][text()='%s']";
     String PRICE_RANGE = "//div[@data-role='content']//ol//li[@class='item']//a[@href='http://168.119.186.3/women/tops-women.html?price=%s']";

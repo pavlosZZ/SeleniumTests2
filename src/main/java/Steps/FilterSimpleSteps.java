@@ -1,6 +1,6 @@
 package Steps;
 
-import Elements.FilterPage;
+import Elements.FilterSimplePage;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
 
@@ -8,9 +8,9 @@ import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
-public class FilterSteps {
+public class FilterSimpleSteps {
 
-    public FilterPage filterPage;
+    public FilterSimplePage filterPage;
 
     @Step
     public void selectFilter(String filter){
