@@ -15,7 +15,7 @@ public class CartSteps {
     @Step
     public void checkCartElements(String text){
         String element = cartPage.getCartElement(text).getText();
-        assertTrue("There is no element with \" " + text + "\" name" , element.equals(text));
+        assertTrue("There is no element with \"" + text + "\" name" , element.equals(text));
     }
 
     @Step
@@ -31,5 +31,11 @@ public class CartSteps {
     @Step
     public void goToCartPage(){
         cartPage.getFullCart().click();
+    }
+
+    public void checkProductsIntoCart(String productName) {
+        WebElementFacade product = cartPage.getFullCartsElement(productName);
+        System.out.println(product.getText());
+        assertTrue("The product you are searching for it doesn't exist.", product.isDisplayed());
     }
 }

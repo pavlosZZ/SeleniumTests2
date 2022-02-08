@@ -62,7 +62,7 @@ public class AddToCartTests {
     }
 
     @Test
-    public void goToCartPageTest(){
+    public void goToCartPageTest() throws InterruptedException {
         loginSteps.signIn();
         loginSteps.enterUsername(username);
         loginSteps.enterPassword(password);
@@ -75,9 +75,11 @@ public class AddToCartTests {
         productSteps.selectProductColor(productColor);
         productSteps.addProductToCart();
         productSteps.goToCartPage();
+        Thread.sleep(5000);
         cartSteps.checkCartElements(productName);
         cartSteps.checkCartCounter();
         cartSteps.goToCartPage();
+        cartSteps.checkProductsIntoCart(productName);
     }
 
     @After
