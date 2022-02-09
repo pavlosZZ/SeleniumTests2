@@ -4,7 +4,6 @@ import Elements.CartPage;
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
 
-import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 

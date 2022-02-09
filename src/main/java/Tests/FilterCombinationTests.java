@@ -2,7 +2,6 @@ package Tests;
 
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
-import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
 import org.junit.After;
 import org.junit.Before;
@@ -10,8 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import Steps.LoginSteps;
-import Steps.ProductSteps;
-import Steps.CartSteps;
 import Steps.FilterSimpleSteps;
 import Steps.FilterCombinationSteps;
 
@@ -22,10 +19,9 @@ public class FilterCombinationTests {
     public String password = "roni_cost3@example.com";
     public String customerCategory = "Men";
     public String productCategory = "Tops";
-    public String productName = "Atlas Fitness Tank";
-    public String productPrice = "€18.00";
-    public String productSize = "L";
-    public String productColor = "Blue";
+    public String filter1 = "Price";
+    public String filter2 = "Category";
+    public String range = "20-30";
 
 
     @Managed
@@ -34,10 +30,6 @@ public class FilterCombinationTests {
 
     @Steps
     LoginSteps loginSteps;
-    @Steps
-    ProductSteps productSteps;
-    @Steps
-    CartSteps cartSteps;
     @Steps
     FilterSimpleSteps filterSteps;
     @Steps
@@ -59,12 +51,12 @@ public class FilterCombinationTests {
         loginSteps.clickSubmit();
         loginSteps.selectCustomerCategory(customerCategory);
         loginSteps.selectProductCategory(productCategory);
-        filterSteps.selectFilter("Category");
+        filterSteps.selectFilter(filter2);
         filterCombinationSteps.getMenTank();
         Thread.sleep(5000);
-        filterSteps.selectFilter("Price");
-        filterCombinationSteps.selectRange("20-30");
-        filterSteps.checkPrices("20-30");
+        filterSteps.selectFilter(filter1);
+        filterCombinationSteps.selectRange(range);
+        filterSteps.checkPrices(range);
         filterCombinationSteps.checkAllProducts();
 
 
