@@ -1,14 +1,22 @@
 package Tests;
 
+import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import Steps.LoginSteps;
 import Steps.FilterSimpleSteps;
+import  Steps.DeleteFilterSteps;
+
+import java.util.List;
+
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SerenityRunner.class)
 public class DeleteFilterTests {
@@ -28,6 +36,9 @@ public class DeleteFilterTests {
     LoginSteps loginSteps;
     @Steps
     FilterSimpleSteps filterSteps;
+    @Steps
+    DeleteFilterSteps deleteFilterSteps;
+
 
     @Before
     public void beforeTest()  {
@@ -36,15 +47,50 @@ public class DeleteFilterTests {
         //Thread.sleep(5000);
     }
 
-    public void deleteFilterTest() {
+    @Test
+    public void deleteFilterTest() throws InterruptedException {
+        int expected_products = 0;
+        int actual_products = 0;
         loginSteps.signIn ();
         loginSteps.enterUsername (username);
         loginSteps.enterPassword (password);
         loginSteps.clickSubmit ();
         loginSteps.selectCustomerCategory (customerCategory);
         loginSteps.selectProductCategory (productCategory);
+        boolean done1 = false;
+        while(!done1){
+            List<WebElementFacade> productListBeforeDel = deleteFilterSteps.getProductsList();
+            expected_products += productListBeforeDel.size ();
+            done1 = true;
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("window.scrollBy(0,1450)", "");
+            Thread.sleep(5000);
+            if(filterSteps.isNextDisplayed()){
+                filterSteps.clickNextButton();
+                done1 = false;
+            }
+        }
+        System.out.println (expected_products);
+        Thread.sleep (5000);
         filterSteps.selectFilter(filter);
-        filterSteps.selectRange(range);
+        deleteFilterSteps.selectRange (range);
+        deleteFilterSteps.deleteFilter(filter);
+        Thread.sleep (5000);
+        boolean done2 = false;
+        while(!done2){
+            List<WebElementFacade> productListAfterDel = deleteFilterSteps.getProductsList ();
+            actual_products += productListAfterDel.size ();
+            done2 = true;
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("window.scrollBy(0,1450)", "");
+            Thread.sleep(5000);
+            if(filterSteps.isNextDisplayed()){
+                filterSteps.clickNextButton();
+                done2 = false;
+            }
+        }
+        System.out.println (actual_products);
+        assertTrue("Something went wrong. The number of products is not the same after filter's deletion.",expected_products==actual_products);
     }
 
 
