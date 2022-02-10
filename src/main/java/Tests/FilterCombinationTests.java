@@ -19,8 +19,8 @@ public class FilterCombinationTests {
     public String password = "roni_cost3@example.com";
     public String customerCategory = "Men";
     public String productCategory = "Tops";
-    public String filter1 = "Price";
-    public String filter2 = "Category";
+    public String filter2 = "Price";
+    public String filter1 = "Category";
     public String range = "20-30";
 
 
@@ -51,10 +51,10 @@ public class FilterCombinationTests {
         loginSteps.clickSubmit();
         loginSteps.selectCustomerCategory(customerCategory);
         loginSteps.selectProductCategory(productCategory);
-        filterSteps.selectFilter(filter2);
+        filterSteps.selectFilter(filter1);
         filterCombinationSteps.getMenTank();
         Thread.sleep(5000);
-        filterSteps.selectFilter(filter1);
+        filterSteps.selectFilter(filter2);
         filterCombinationSteps.selectRange(range);
         filterSteps.checkPrices(range);
         filterCombinationSteps.checkAllProducts();

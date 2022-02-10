@@ -44,7 +44,6 @@ public class DeleteFilterTests {
     public void beforeTest()  {
         driver.navigate().to(URL);
         driver.manage().window().maximize();
-        //Thread.sleep(5000);
     }
 
     @Test
@@ -64,18 +63,17 @@ public class DeleteFilterTests {
             done1 = true;
             JavascriptExecutor js = (JavascriptExecutor) driver;
             js.executeScript("window.scrollBy(0,1450)", "");
-            Thread.sleep(5000);
             if(filterSteps.isNextDisplayed()){
                 filterSteps.clickNextButton();
                 done1 = false;
             }
         }
         System.out.println (expected_products);
-        Thread.sleep (5000);
+        Thread.sleep (2000);
         filterSteps.selectFilter(filter);
         deleteFilterSteps.selectRange (range);
         deleteFilterSteps.deleteFilter(filter);
-        Thread.sleep (5000);
+        Thread.sleep (2000);
         boolean done2 = false;
         while(!done2){
             List<WebElementFacade> productListAfterDel = deleteFilterSteps.getProductsList ();
@@ -83,7 +81,6 @@ public class DeleteFilterTests {
             done2 = true;
             JavascriptExecutor js = (JavascriptExecutor) driver;
             js.executeScript("window.scrollBy(0,1450)", "");
-            Thread.sleep(5000);
             if(filterSteps.isNextDisplayed()){
                 filterSteps.clickNextButton();
                 done2 = false;

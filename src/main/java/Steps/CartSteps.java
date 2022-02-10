@@ -28,7 +28,7 @@ public class CartSteps {
     }
 
     @Step
-    public void goToCartPage(){
+    public void goToFullCartPage(){
         cartPage.getFullCart().click();
     }
 

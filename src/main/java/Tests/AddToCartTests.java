@@ -78,7 +78,7 @@ public class AddToCartTests {
         Thread.sleep(5000);
         cartSteps.checkCartElements(productName);
         cartSteps.checkCartCounter();
-        cartSteps.goToCartPage();
+        cartSteps.goToFullCartPage();
         cartSteps.checkProductsIntoCart(productName);
     }
 
