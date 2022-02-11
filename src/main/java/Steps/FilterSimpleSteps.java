@@ -49,10 +49,15 @@ public class FilterSimpleSteps {
     public boolean isNextDisplayed(){
         boolean answer;
         try{
-            answer = filterPage.getNextButton().isDisplayed();
-            System.out.println("Hi");
+            List<WebElementFacade> elements = filterPage.getNextButton ();
+            WebElementFacade element = elements.get (elements.size () - 1);
+            System.out.println (elements.size ());
+            answer = element.isDisplayed();
+            System.out.println (answer);
+            System.out.println("Try");
         }catch (Exception e){
             answer = false;
+            System.out.println("Catch");
         }
 
         return answer;
@@ -60,6 +65,8 @@ public class FilterSimpleSteps {
 
     @Step
     public void clickNextButton(){
-        filterPage.getNextButton().click();
+        List<WebElementFacade> elements = filterPage.getNextButton ();
+        WebElementFacade element = elements.get (elements.size () - 1);
+        element.click();
     }
 }

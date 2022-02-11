@@ -7,6 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import Steps.LoginSteps;
 import Steps.FilterSimpleSteps;
@@ -56,8 +57,20 @@ public class FilterCombinationTests {
         Thread.sleep(5000);
         filterSteps.selectFilter(filter2);
         filterCombinationSteps.selectRange(range);
-        filterSteps.checkPrices(range);
-        filterCombinationSteps.checkAllProducts();
+        boolean done = false;
+        while(!done){
+            filterSteps.checkPrices(range);
+            filterCombinationSteps.checkAllProducts();
+            done = true;
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("window.scrollBy(0,1450)", "");
+            Thread.sleep(5000);
+            if(filterSteps.isNextDisplayed()){
+                filterSteps.clickNextButton();
+                done = false;
+            }
+        }
+
 
 
     }

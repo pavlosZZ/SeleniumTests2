@@ -64,13 +64,14 @@ public class LoginTest {
     }
 
     @Test
-    public void productSelection() {
+    public void productSelection() throws InterruptedException {
         loginSteps.signIn();
         loginSteps.enterUsername(username);
         loginSteps.enterPassword(password);
         loginSteps.clickSubmit();
         loginSteps.selectCustomerCategory(customerCategory);
         loginSteps.selectProductCategory(productCategory);
+        Thread.sleep (5000);
         loginSteps.selectProduct(productName);
         productSteps.checkProductPrice(productPrice);
         productSteps.selectProductSize(productSize);

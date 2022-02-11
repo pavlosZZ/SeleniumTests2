@@ -2,7 +2,11 @@ package Steps;
 
 import Elements.LoginPage;
 import Elements.ProductPage;
+import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
+import org.openqa.selenium.JavascriptExecutor;
+
+import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
@@ -66,6 +70,13 @@ public class LoginSteps {
 
 
     public void selectProduct(String product) {
-        productPage.getProductByImage(product).click();
+        List<WebElementFacade> elements = productPage.getProductByImage(product);
+        for(WebElementFacade element : elements){
+            String productText = element.getText ();
+            if(productText.contains (product)){
+                element.click ();
+                break;
+            }
+        }
     }
 }
