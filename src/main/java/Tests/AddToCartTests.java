@@ -18,12 +18,12 @@ public class AddToCartTests {
 
     public String username = "roni_cost@example.com";
     public String password = "roni_cost3@example.com";
-    public String customerCategory = "Men";
-    public String productCategory = "Tops";
-    public String productName = "Atlas Fitness Tank";
-    public String productPrice = "€18.00";
-    public String productSize = "L";
-    public String productColor = "Blue";
+    public String customerCategory = "Women";
+    public String productCategory = "Bottoms";
+    public String productName = "Bess Yoga Short";
+    public String productPrice = "€28.00";
+    public String productSize = "28";
+    public String productColor = "Purple";
 
     @Managed
     WebDriver driver;
@@ -44,7 +44,7 @@ public class AddToCartTests {
     }
 
     @Test
-    public void addToCartVerification(){
+    public void addToCartVerification() throws InterruptedException {
         loginSteps.signIn();
         loginSteps.enterUsername(username);
         loginSteps.enterPassword(password);
@@ -57,6 +57,7 @@ public class AddToCartTests {
         productSteps.selectProductColor(productColor);
         productSteps.addProductToCart();
         productSteps.goToCartPage();
+        Thread.sleep (2000);
         cartSteps.checkCartElements(productName);
         cartSteps.checkCartCounter();
     }

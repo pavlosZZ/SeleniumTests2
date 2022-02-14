@@ -17,12 +17,12 @@ public class LoginTest {
 
     public String username = "roni_cost@example.com";
     public String password = "roni_cost3@example.com";
-    public String customerCategory = "Women";
+    public String customerCategory = "Men";
     public String productCategory = "Bottoms";
-    public String productName = "Ina Compression Short";
-    public String productPrice = "€49.00";
-    public String productSize = "28";
-    public String productColor = "Blue";
+    public String productName = "Pierce Gym Short";
+    public String productPrice = "€27.00";
+    public String productSize = "33";
+    public String productColor = "Gray";
 
     @Managed
     WebDriver driver;
